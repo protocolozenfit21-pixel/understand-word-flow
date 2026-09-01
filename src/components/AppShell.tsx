@@ -46,6 +46,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="ml-auto flex items-center gap-1">
             <Link
               to="/buscar"
+              search={{ q: "" }}
               aria-label="Pesquisar"
               className="grid size-9 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
             >
