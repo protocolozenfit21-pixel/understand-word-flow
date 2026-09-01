@@ -15,27 +15,49 @@ type ReaderChapter = {
   insight?: Insight | null;
 };
 
-const layers: { id: Layer; label: string; hint: string }[] = [
-  { id: "texto", label: "📜 Texto Bíblico", hint: "Tradução tradicional, sem alterações." },
-  { id: "atual", label: "🗣️ Linguagem Atual", hint: "A mesma passagem em palavras do dia a dia." },
-  { id: "entenda", label: "💡 Entenda", hint: "Contexto, significado e aplicação — conteúdo explicativo." },
+const layers: { id: Layer; label: string; short: string; icon: string; hint: string }[] = [
+  {
+    id: "texto",
+    label: "Texto Bíblico",
+    short: "Texto",
+    icon: "📜",
+    hint: "Tradução tradicional, sem alterações.",
+  },
+  {
+    id: "atual",
+    label: "Linguagem Atual",
+    short: "Atual",
+    icon: "🗣️",
+    hint: "A mesma passagem em palavras do dia a dia.",
+  },
+  {
+    id: "entenda",
+    label: "Entenda",
+    short: "Entenda",
+    icon: "💡",
+    hint: "Contexto, significado e aplicação — conteúdo explicativo.",
+  },
 ];
 
 export function LayerSwitcher({ value, onChange }: { value: Layer; onChange: (l: Layer) => void }) {
   return (
     <div>
-      <div className="flex gap-1.5 overflow-x-auto rounded-full border border-border/70 bg-card p-1.5">
+      <div className="grid grid-cols-3 gap-1 rounded-full border border-border/70 bg-card p-1.5">
         {layers.map((l) => (
           <button
             key={l.id}
             type="button"
             onClick={() => onChange(l.id)}
             className={cn(
-              "whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium transition-colors",
+              "flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2 py-2 text-[13px] font-medium transition-colors sm:px-4 sm:text-sm",
               value === l.id ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:bg-secondary",
             )}
           >
-            {l.label}
+            <span aria-hidden className="shrink-0 text-[13px] leading-none">
+              {l.icon}
+            </span>
+            <span className="truncate sm:hidden">{l.short}</span>
+            <span className="hidden truncate sm:inline">{l.label}</span>
           </button>
         ))}
       </div>
