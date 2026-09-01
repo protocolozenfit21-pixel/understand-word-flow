@@ -77,7 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lumen — Entenda a Bíblia todos os dias" },
+      { title: "Elohim — Entenda a Bíblia todos os dias" },
       {
         name: "description",
         content:
@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "theme-color", content: "#2b3a67" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Lumen" },
+      { property: "og:site_name", content: "Elohim" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [

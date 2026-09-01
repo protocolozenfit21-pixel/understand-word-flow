@@ -14,7 +14,7 @@ export const Route = createFileRoute("/jornada/$stepId")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Etapa não encontrada — Lumen" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Etapa não encontrada — Elohim" }, { name: "robots", content: "noindex" }] };
     }
     return {
       meta: [

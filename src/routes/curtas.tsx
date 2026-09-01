@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/curtas")({
   head: () => ({
     meta: [
-      { title: "Tenho apenas 5 minutos — leituras curtas | Lumen" },
+      { title: "Tenho apenas 5 minutos — leituras curtas | Elohim" },
       {
         name: "description",
         content: "Leituras de 5, 10 ou 20 minutos com texto bíblico, explicação simples e uma reflexão para o dia.",

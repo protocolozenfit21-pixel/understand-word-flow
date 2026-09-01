@@ -27,7 +27,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground">
               <BookOpen className="size-4" />
             </span>
-            <span className="text-[15px] font-semibold tracking-tight">Lumen</span>
+            <span className="text-[15px] font-semibold tracking-tight">Elohim</span>
           </Link>
 
           <nav className="ml-6 hidden items-center gap-1 md:flex">

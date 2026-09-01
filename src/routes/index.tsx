@@ -9,13 +9,13 @@ import { useAppState, useStats } from "@/lib/store";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Lumen — Leia e entenda a Bíblia em poucos minutos por dia" },
+      { title: "Elohim — Leia e entenda a Bíblia em poucos minutos por dia" },
       {
         name: "description",
         content:
           "Mensagem diária, leitura em três camadas, desafios e progresso. Comece sua jornada pela Bíblia mesmo sem saber por onde começar.",
       },
-      { property: "og:title", content: "Lumen — Leia e entenda a Bíblia" },
+      { property: "og:title", content: "Elohim — Leia e entenda a Bíblia" },
       {
         property: "og:description",
         content: "Texto bíblico, linguagem atual e explicação lado a lado, com hábito diário e desafios.",

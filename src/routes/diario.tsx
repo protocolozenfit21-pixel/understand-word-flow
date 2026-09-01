@@ -9,7 +9,7 @@ import { actions, useAppState } from "@/lib/store";
 export const Route = createFileRoute("/diario")({
   head: () => ({
     meta: [
-      { title: "Meu Diário espiritual — reflexões pessoais | Lumen" },
+      { title: "Meu Diário espiritual — reflexões pessoais | Elohim" },
       {
         name: "description",
         content: "Escreva o que você refletiu em cada leitura e acompanhe sua timeline pessoal de crescimento.",

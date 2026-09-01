@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/comecar")({
   head: () => ({
     meta: [
-      { title: "Não sei por onde começar — Lumen" },
+      { title: "Não sei por onde começar — Elohim" },
       {
         name: "description",
         content: "Duas perguntas e você recebe uma jornada de leitura da Bíblia adequada ao seu momento e objetivo.",

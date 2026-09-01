@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/perfil")({
   head: () => ({
     meta: [
-      { title: "Minha Jornada — progresso e conquistas | Lumen" },
+      { title: "Minha Jornada — progresso e conquistas | Elohim" },
       {
         name: "description",
         content:
