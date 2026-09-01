@@ -10,33 +10,80 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComecarRouteImport } from './routes/comecar'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as BibliaIndexRouteImport } from './routes/biblia.index'
+import { Route as BibliaBookChapterRouteImport } from './routes/biblia.$book.$chapter'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComecarRoute = ComecarRouteImport.update({
+  id: '/comecar',
+  path: '/comecar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibliaIndexRoute = BibliaIndexRouteImport.update({
+  id: '/biblia/',
+  path: '/biblia/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibliaBookChapterRoute = BibliaBookChapterRouteImport.update({
+  id: '/biblia/$book/$chapter',
+  path: '/biblia/$book/$chapter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/comecar': typeof ComecarRoute
+  '/onboarding': typeof OnboardingRoute
+  '/biblia/': typeof BibliaIndexRoute
+  '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/comecar': typeof ComecarRoute
+  '/onboarding': typeof OnboardingRoute
+  '/biblia': typeof BibliaIndexRoute
+  '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/comecar': typeof ComecarRoute
+  '/onboarding': typeof OnboardingRoute
+  '/biblia/': typeof BibliaIndexRoute
+  '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/comecar' | '/onboarding' | '/biblia/' | '/biblia/$book/$chapter'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/comecar' | '/onboarding' | '/biblia' | '/biblia/$book/$chapter'
+  id:
+    | '__root__'
+    | '/'
+    | '/comecar'
+    | '/onboarding'
+    | '/biblia/'
+    | '/biblia/$book/$chapter'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ComecarRoute: typeof ComecarRoute
+  OnboardingRoute: typeof OnboardingRoute
+  BibliaIndexRoute: typeof BibliaIndexRoute
+  BibliaBookChapterRoute: typeof BibliaBookChapterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +95,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/comecar': {
+      id: '/comecar'
+      path: '/comecar'
+      fullPath: '/comecar'
+      preLoaderRoute: typeof ComecarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biblia/': {
+      id: '/biblia/'
+      path: '/biblia'
+      fullPath: '/biblia/'
+      preLoaderRoute: typeof BibliaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biblia/$book/$chapter': {
+      id: '/biblia/$book/$chapter'
+      path: '/biblia/$book/$chapter'
+      fullPath: '/biblia/$book/$chapter'
+      preLoaderRoute: typeof BibliaBookChapterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ComecarRoute: ComecarRoute,
+  OnboardingRoute: OnboardingRoute,
+  BibliaIndexRoute: BibliaIndexRoute,
+  BibliaBookChapterRoute: BibliaBookChapterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
