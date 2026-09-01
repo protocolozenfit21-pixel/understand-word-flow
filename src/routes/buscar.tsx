@@ -14,7 +14,7 @@ export const Route = createFileRoute("/buscar")({
   }),
   head: () => ({
     meta: [
-      { title: "Pesquisa inteligente — temas, livros e versículos | Lumen" },
+      { title: "Pesquisa inteligente — temas, livros e versículos | Elohim" },
       {
         name: "description",
         content:

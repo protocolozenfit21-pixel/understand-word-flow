@@ -14,11 +14,11 @@ export const Route = createFileRoute("/desafios/$challengeId")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Desafio não encontrado — Lumen" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Desafio não encontrado — Elohim" }, { name: "robots", content: "noindex" }] };
     }
     return {
       meta: [
-        { title: `${loaderData.title} — desafio de ${loaderData.days} dias | Lumen` },
+        { title: `${loaderData.title} — desafio de ${loaderData.days} dias | Elohim` },
         { name: "description", content: loaderData.description },
         { property: "og:title", content: `${loaderData.title} · ${loaderData.days} dias` },
         { property: "og:description", content: loaderData.description },

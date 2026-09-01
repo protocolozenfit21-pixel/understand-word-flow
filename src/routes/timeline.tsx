@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/timeline")({
   head: () => ({
     meta: [
-      { title: "História da Bíblia — linha do tempo | Lumen" },
+      { title: "História da Bíblia — linha do tempo | Elohim" },
       {
         name: "description",
         content:

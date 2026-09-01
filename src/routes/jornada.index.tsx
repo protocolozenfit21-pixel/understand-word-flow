@@ -8,7 +8,7 @@ import { useAppState } from "@/lib/store";
 export const Route = createFileRoute("/jornada/")({
   head: () => ({
     meta: [
-      { title: "Jornada Bíblica — da Criação ao Apocalipse | Lumen" },
+      { title: "Jornada Bíblica — da Criação ao Apocalipse | Elohim" },
       {
         name: "description",
         content:

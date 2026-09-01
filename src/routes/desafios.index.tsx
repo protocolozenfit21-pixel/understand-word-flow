@@ -8,7 +8,7 @@ import { useAppState } from "@/lib/store";
 export const Route = createFileRoute("/desafios/")({
   head: () => ({
     meta: [
-      { title: "Desafios de leitura da Bíblia — Lumen" },
+      { title: "Desafios de leitura da Bíblia — Elohim" },
       {
         name: "description",
         content:

@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/biblia/")({
   head: () => ({
     meta: [
-      { title: "Bíblia completa — 66 livros em três camadas | Lumen" },
+      { title: "Bíblia completa — 66 livros em três camadas | Elohim" },
       {
         name: "description",
         content:

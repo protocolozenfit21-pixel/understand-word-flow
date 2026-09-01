@@ -7,7 +7,7 @@ import { useAppState } from "@/lib/store";
 export const Route = createFileRoute("/ouvir")({
   head: () => ({
     meta: [
-      { title: "Ouvir a Bíblia e reflexões em áudio — Lumen" },
+      { title: "Ouvir a Bíblia e reflexões em áudio — Elohim" },
       {
         name: "description",
         content: "Continue de onde parou, controle a velocidade e ouça reflexões curtas de 3, 5 ou 10 minutos.",

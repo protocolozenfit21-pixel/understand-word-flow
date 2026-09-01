@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/onboarding")({
   head: () => ({
     meta: [
-      { title: "Vamos começar juntos — Lumen" },
+      { title: "Vamos começar juntos — Elohim" },
       {
         name: "description",
         content: "Conte um pouco sobre o seu momento e receba uma jornada de leitura da Bíblia feita para você.",
       },
-      { property: "og:title", content: "Vamos começar juntos — Lumen" },
+      { property: "og:title", content: "Vamos começar juntos — Elohim" },
       { property: "og:description", content: "Personalize sua jornada de leitura da Bíblia em três passos." },
     ],
   }),
@@ -77,7 +77,7 @@ function Onboarding() {
             <ArrowLeft className="size-4" />
           </button>
         ) : null}
-        <span className="text-sm font-semibold tracking-tight">Lumen</span>
+        <span className="text-sm font-semibold tracking-tight">Elohim</span>
         <span className="ml-auto text-xs text-muted-foreground">Passo {step + 1} de 4</span>
       </div>
       <ProgressBar value={step + 1} max={4} className="mt-4" />

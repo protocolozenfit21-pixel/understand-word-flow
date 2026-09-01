@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/favoritos")({
   head: () => ({
     meta: [
-      { title: "Meus Versículos — coleções e anotações | Lumen" },
+      { title: "Meus Versículos — coleções e anotações | Elohim" },
       {
         name: "description",
         content: "Salve versículos em coleções como Paz, Ansiedade, Fé e Oração, e adicione suas próprias anotações.",

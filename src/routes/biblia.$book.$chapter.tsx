@@ -29,12 +29,12 @@ export const Route = createFileRoute("/biblia/$book/$chapter")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Passagem não encontrada — Lumen" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Passagem não encontrada — Elohim" }, { name: "robots", content: "noindex" }] };
     }
     const label = `${loaderData.bookName} ${loaderData.chapterNumber}`;
     return {
       meta: [
-        { title: `${label} | Lumen` },
+        { title: `${label} | Elohim` },
         {
           name: "description",
           content: `Leia ${label} com texto bíblico, linguagem atual e explicação com contexto histórico e aplicação para hoje.`,
