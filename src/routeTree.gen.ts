@@ -12,10 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BuscarRouteImport } from './routes/buscar'
 import { Route as ComecarRouteImport } from './routes/comecar'
+import { Route as CurtasRouteImport } from './routes/curtas'
 import { Route as DiarioRouteImport } from './routes/diario'
 import { Route as FavoritosRouteImport } from './routes/favoritos'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as OuvirRouteImport } from './routes/ouvir'
 import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as BibliaIndexRouteImport } from './routes/biblia.index'
 import { Route as DesafiosIndexRouteImport } from './routes/desafios.index'
 import { Route as DesafiosChallengeIdRouteImport } from './routes/desafios.$challengeId'
@@ -38,6 +41,11 @@ const ComecarRoute = ComecarRouteImport.update({
   path: '/comecar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CurtasRoute = CurtasRouteImport.update({
+  id: '/curtas',
+  path: '/curtas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DiarioRoute = DiarioRouteImport.update({
   id: '/diario',
   path: '/diario',
@@ -53,9 +61,19 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OuvirRoute = OuvirRouteImport.update({
+  id: '/ouvir',
+  path: '/ouvir',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PerfilRoute = PerfilRouteImport.update({
   id: '/perfil',
   path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BibliaIndexRoute = BibliaIndexRouteImport.update({
@@ -93,10 +111,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/buscar': typeof BuscarRoute
   '/comecar': typeof ComecarRoute
+  '/curtas': typeof CurtasRoute
   '/diario': typeof DiarioRoute
   '/favoritos': typeof FavoritosRoute
   '/onboarding': typeof OnboardingRoute
+  '/ouvir': typeof OuvirRoute
   '/perfil': typeof PerfilRoute
+  '/timeline': typeof TimelineRoute
   '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
   '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia/': typeof BibliaIndexRoute
@@ -108,10 +129,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/buscar': typeof BuscarRoute
   '/comecar': typeof ComecarRoute
+  '/curtas': typeof CurtasRoute
   '/diario': typeof DiarioRoute
   '/favoritos': typeof FavoritosRoute
   '/onboarding': typeof OnboardingRoute
+  '/ouvir': typeof OuvirRoute
   '/perfil': typeof PerfilRoute
+  '/timeline': typeof TimelineRoute
   '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
   '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia': typeof BibliaIndexRoute
@@ -124,10 +148,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/buscar': typeof BuscarRoute
   '/comecar': typeof ComecarRoute
+  '/curtas': typeof CurtasRoute
   '/diario': typeof DiarioRoute
   '/favoritos': typeof FavoritosRoute
   '/onboarding': typeof OnboardingRoute
+  '/ouvir': typeof OuvirRoute
   '/perfil': typeof PerfilRoute
+  '/timeline': typeof TimelineRoute
   '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
   '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia/': typeof BibliaIndexRoute
@@ -141,10 +168,13 @@ export interface FileRouteTypes {
     | '/'
     | '/buscar'
     | '/comecar'
+    | '/curtas'
     | '/diario'
     | '/favoritos'
     | '/onboarding'
+    | '/ouvir'
     | '/perfil'
+    | '/timeline'
     | '/desafios/$challengeId'
     | '/jornada/$stepId'
     | '/biblia/'
@@ -156,10 +186,13 @@ export interface FileRouteTypes {
     | '/'
     | '/buscar'
     | '/comecar'
+    | '/curtas'
     | '/diario'
     | '/favoritos'
     | '/onboarding'
+    | '/ouvir'
     | '/perfil'
+    | '/timeline'
     | '/desafios/$challengeId'
     | '/jornada/$stepId'
     | '/biblia'
@@ -171,10 +204,13 @@ export interface FileRouteTypes {
     | '/'
     | '/buscar'
     | '/comecar'
+    | '/curtas'
     | '/diario'
     | '/favoritos'
     | '/onboarding'
+    | '/ouvir'
     | '/perfil'
+    | '/timeline'
     | '/desafios/$challengeId'
     | '/jornada/$stepId'
     | '/biblia/'
@@ -187,10 +223,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BuscarRoute: typeof BuscarRoute
   ComecarRoute: typeof ComecarRoute
+  CurtasRoute: typeof CurtasRoute
   DiarioRoute: typeof DiarioRoute
   FavoritosRoute: typeof FavoritosRoute
   OnboardingRoute: typeof OnboardingRoute
+  OuvirRoute: typeof OuvirRoute
   PerfilRoute: typeof PerfilRoute
+  TimelineRoute: typeof TimelineRoute
   DesafiosChallengeIdRoute: typeof DesafiosChallengeIdRoute
   JornadaStepIdRoute: typeof JornadaStepIdRoute
   BibliaIndexRoute: typeof BibliaIndexRoute
@@ -222,6 +261,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComecarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/curtas': {
+      id: '/curtas'
+      path: '/curtas'
+      fullPath: '/curtas'
+      preLoaderRoute: typeof CurtasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/diario': {
       id: '/diario'
       path: '/diario'
@@ -243,11 +289,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ouvir': {
+      id: '/ouvir'
+      path: '/ouvir'
+      fullPath: '/ouvir'
+      preLoaderRoute: typeof OuvirRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/perfil': {
       id: '/perfil'
       path: '/perfil'
       fullPath: '/perfil'
       preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/biblia/': {
@@ -299,10 +359,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BuscarRoute: BuscarRoute,
   ComecarRoute: ComecarRoute,
+  CurtasRoute: CurtasRoute,
   DiarioRoute: DiarioRoute,
   FavoritosRoute: FavoritosRoute,
   OnboardingRoute: OnboardingRoute,
+  OuvirRoute: OuvirRoute,
   PerfilRoute: PerfilRoute,
+  TimelineRoute: TimelineRoute,
   DesafiosChallengeIdRoute: DesafiosChallengeIdRoute,
   JornadaStepIdRoute: JornadaStepIdRoute,
   BibliaIndexRoute: BibliaIndexRoute,
