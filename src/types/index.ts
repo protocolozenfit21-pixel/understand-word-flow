@@ -2,8 +2,8 @@ export type Verse = {
   n: number;
   /** Texto bíblico (tradução de domínio público / livre). */
   text: string;
-  /** Mesma passagem em linguagem atual e acessível. */
-  simple: string;
+  /** Mesma passagem em linguagem atual e acessível (camada gerada). */
+  simple?: string;
 };
 
 export type Insight = {
@@ -24,7 +24,7 @@ export type Chapter = {
   number: number;
   title: string;
   verses: Verse[];
-  insight: Insight;
+  insight?: Insight;
   minutes: number;
 };
 
@@ -37,6 +37,30 @@ export type BibleBook = {
   chapters: Chapter[];
   totalChapters: number;
 };
+
+/** Metadado canônico de um dos 66 livros. */
+export type BookMeta = {
+  id: string;
+  abbrev: string;
+  name: string;
+  testament: "antigo" | "novo";
+  group: string;
+  order: number;
+  totalChapters: number;
+  summary?: string;
+};
+
+/** Capítulo vindo do banco: texto sempre presente, camadas quando já geradas. */
+export type ChapterPayload = {
+  book: BookMeta;
+  chapter: number;
+  title: string;
+  minutes: number;
+  verses: Verse[];
+  insight: Insight | null;
+  layersReady: boolean;
+};
+
 
 export type QuizQuestion = {
   id: string;

@@ -24,6 +24,8 @@ import { Route as DesafiosIndexRouteImport } from './routes/desafios.index'
 import { Route as DesafiosChallengeIdRouteImport } from './routes/desafios.$challengeId'
 import { Route as JornadaIndexRouteImport } from './routes/jornada.index'
 import { Route as JornadaStepIdRouteImport } from './routes/jornada.$stepId'
+import { Route as ApiPublicImportBibleRouteImport } from './routes/api/public/import-bible'
+import { Route as ApiPublicSeedChapterLayersRouteImport } from './routes/api/public/seed-chapter-layers'
 import { Route as BibliaBookChapterRouteImport } from './routes/biblia.$book.$chapter'
 
 const IndexRoute = IndexRouteImport.update({
@@ -101,6 +103,17 @@ const JornadaStepIdRoute = JornadaStepIdRouteImport.update({
   path: '/jornada/$stepId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicImportBibleRoute = ApiPublicImportBibleRouteImport.update({
+  id: '/api/public/import-bible',
+  path: '/api/public/import-bible',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicSeedChapterLayersRoute =
+  ApiPublicSeedChapterLayersRouteImport.update({
+    id: '/api/public/seed-chapter-layers',
+    path: '/api/public/seed-chapter-layers',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BibliaBookChapterRoute = BibliaBookChapterRouteImport.update({
   id: '/biblia/$book/$chapter',
   path: '/biblia/$book/$chapter',
@@ -123,6 +136,8 @@ export interface FileRoutesByFullPath {
   '/biblia/': typeof BibliaIndexRoute
   '/desafios/': typeof DesafiosIndexRoute
   '/jornada/': typeof JornadaIndexRoute
+  '/api/public/import-bible': typeof ApiPublicImportBibleRoute
+  '/api/public/seed-chapter-layers': typeof ApiPublicSeedChapterLayersRoute
   '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesByTo {
@@ -141,6 +156,8 @@ export interface FileRoutesByTo {
   '/biblia': typeof BibliaIndexRoute
   '/desafios': typeof DesafiosIndexRoute
   '/jornada': typeof JornadaIndexRoute
+  '/api/public/import-bible': typeof ApiPublicImportBibleRoute
+  '/api/public/seed-chapter-layers': typeof ApiPublicSeedChapterLayersRoute
   '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesById {
@@ -160,6 +177,8 @@ export interface FileRoutesById {
   '/biblia/': typeof BibliaIndexRoute
   '/desafios/': typeof DesafiosIndexRoute
   '/jornada/': typeof JornadaIndexRoute
+  '/api/public/import-bible': typeof ApiPublicImportBibleRoute
+  '/api/public/seed-chapter-layers': typeof ApiPublicSeedChapterLayersRoute
   '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRouteTypes {
@@ -180,6 +199,8 @@ export interface FileRouteTypes {
     | '/biblia/'
     | '/desafios/'
     | '/jornada/'
+    | '/api/public/import-bible'
+    | '/api/public/seed-chapter-layers'
     | '/biblia/$book/$chapter'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -198,6 +219,8 @@ export interface FileRouteTypes {
     | '/biblia'
     | '/desafios'
     | '/jornada'
+    | '/api/public/import-bible'
+    | '/api/public/seed-chapter-layers'
     | '/biblia/$book/$chapter'
   id:
     | '__root__'
@@ -216,6 +239,8 @@ export interface FileRouteTypes {
     | '/biblia/'
     | '/desafios/'
     | '/jornada/'
+    | '/api/public/import-bible'
+    | '/api/public/seed-chapter-layers'
     | '/biblia/$book/$chapter'
   fileRoutesById: FileRoutesById
 }
@@ -235,6 +260,8 @@ export interface RootRouteChildren {
   BibliaIndexRoute: typeof BibliaIndexRoute
   DesafiosIndexRoute: typeof DesafiosIndexRoute
   JornadaIndexRoute: typeof JornadaIndexRoute
+  ApiPublicImportBibleRoute: typeof ApiPublicImportBibleRoute
+  ApiPublicSeedChapterLayersRoute: typeof ApiPublicSeedChapterLayersRoute
   BibliaBookChapterRoute: typeof BibliaBookChapterRoute
 }
 
@@ -345,6 +372,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JornadaStepIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/import-bible': {
+      id: '/api/public/import-bible'
+      path: '/api/public/import-bible'
+      fullPath: '/api/public/import-bible'
+      preLoaderRoute: typeof ApiPublicImportBibleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/seed-chapter-layers': {
+      id: '/api/public/seed-chapter-layers'
+      path: '/api/public/seed-chapter-layers'
+      fullPath: '/api/public/seed-chapter-layers'
+      preLoaderRoute: typeof ApiPublicSeedChapterLayersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/biblia/$book/$chapter': {
       id: '/biblia/$book/$chapter'
       path: '/biblia/$book/$chapter'
@@ -371,6 +412,8 @@ const rootRouteChildren: RootRouteChildren = {
   BibliaIndexRoute: BibliaIndexRoute,
   DesafiosIndexRoute: DesafiosIndexRoute,
   JornadaIndexRoute: JornadaIndexRoute,
+  ApiPublicImportBibleRoute: ApiPublicImportBibleRoute,
+  ApiPublicSeedChapterLayersRoute: ApiPublicSeedChapterLayersRoute,
   BibliaBookChapterRoute: BibliaBookChapterRoute,
 }
 export const routeTree = rootRouteImport

@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { Bookmark, Highlighter, Share2, StickyNote, Sparkles, Map } from "lucide-react";
 import { toast } from "sonner";
-import type { BibleBook, Chapter } from "@/types";
+import type { Insight, Verse } from "@/types";
 import { actions, useAppState } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { Pill } from "./ui-bits";
 
 export type Layer = "texto" | "atual" | "entenda";
+
+type ReaderBook = { id: string; name: string };
+type ReaderChapter = {
+  number: number;
+  verses: Verse[];
+  insight?: Insight | null;
+};
 
 const layers: { id: Layer; label: string; hint: string }[] = [
   { id: "texto", label: "📜 Texto Bíblico", hint: "Tradução tradicional, sem alterações." },
@@ -37,13 +44,24 @@ export function LayerSwitcher({ value, onChange }: { value: Layer; onChange: (l:
   );
 }
 
+export function LayerLoading({ label }: { label: string }) {
+  return (
+    <div className="rounded-3xl border border-dashed border-border bg-card/70 p-6 text-center">
+      <p className="text-sm font-medium">Preparando {label} deste capítulo…</p>
+      <p className="mt-1.5 text-xs text-muted-foreground">
+        Isso acontece uma única vez por capítulo e depois fica salvo para todos os leitores.
+      </p>
+    </div>
+  );
+}
+
 export function BibleReader({
   book,
   chapter,
   layer,
 }: {
-  book: BibleBook;
-  chapter: Chapter;
+  book: ReaderBook;
+  chapter: ReaderChapter;
   layer: Layer;
 }) {
   const highlights = useAppState((s) => s.highlights);
@@ -52,7 +70,14 @@ export function BibleReader({
   const [noteFor, setNoteFor] = useState<number | null>(null);
   const [noteText, setNoteText] = useState("");
 
-  if (layer === "entenda") return <InsightPanel book={book} chapter={chapter} />;
+  if (layer === "entenda") {
+    if (!chapter.insight) return <LayerLoading label="a explicação" />;
+    return <InsightPanel book={book} chapter={{ ...chapter, insight: chapter.insight }} />;
+  }
+  if (layer === "atual" && !chapter.verses.some((v) => v.simple)) {
+    return <LayerLoading label="a linguagem atual" />;
+  }
+
 
   return (
     <div className="space-y-1">
@@ -79,7 +104,7 @@ export function BibleReader({
                     : "text-[17px] leading-[1.8]",
                 )}
               >
-                {layer === "texto" ? v.text : v.simple}
+                {layer === "texto" ? v.text : (v.simple ?? v.text)}
               </span>
             </button>
 
@@ -130,7 +155,7 @@ export function BibleReader({
                   <VerseAction
                     icon={Map}
                     label="Ver no mapa"
-                    onClick={() => toast("🗺️ Mapa bíblico chega em breve", { description: chapter.insight.place })}
+                    onClick={() => toast("🗺️ Mapa bíblico chega em breve", { description: chapter.insight?.place ?? "Localização em breve" })}
                   />
                 </div>
 
@@ -166,8 +191,8 @@ export function BibleReader({
                   <p className="text-[11px] font-semibold uppercase tracking-[0.14em] opacity-70">
                     💡 Explicação (conteúdo do app, não é texto bíblico)
                   </p>
-                  <p className="mt-1.5 text-sm leading-relaxed">{v.simple}</p>
-                  <p className="mt-2 text-sm leading-relaxed">{chapter.insight.meaning}</p>
+                  <p className="mt-1.5 text-sm leading-relaxed">{v.simple ?? v.text}</p>
+                  {chapter.insight ? <p className="mt-2 text-sm leading-relaxed">{chapter.insight.meaning}</p> : null}
                 </div>
               </div>
             ) : null}
@@ -209,7 +234,13 @@ function VerseAction({
   );
 }
 
-export function InsightPanel({ book, chapter }: { book: BibleBook; chapter: Chapter }) {
+export function InsightPanel({
+  book,
+  chapter,
+}: {
+  book: ReaderBook;
+  chapter: { number: number; insight: Insight };
+}) {
   const i = chapter.insight;
   const blocks = [
     { label: "📚 Contexto histórico", value: i.context },
