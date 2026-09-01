@@ -66,22 +66,24 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <main className="mx-auto w-full max-w-6xl px-4 pb-28 pt-6 md:pb-16">{children}</main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl md:hidden">
-        <div className="grid grid-cols-5">
-          {nav.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              activeOptions={{ exact: item.to === "/" }}
-              className={cn(
-                "group flex flex-col items-center gap-1 py-2.5 text-[11px] font-medium text-muted-foreground",
-                "data-[status=active]:text-primary",
-              )}
-            >
-              <item.icon className="size-5" />
-              {item.label}
-            </Link>
-          ))}
+      <nav className="fixed inset-x-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 md:hidden">
+        <div className="rounded-[2rem] border border-border/60 bg-background/85 shadow-[var(--shadow-soft)] backdrop-blur-xl">
+          <div className="grid grid-cols-5">
+            {nav.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                activeOptions={{ exact: item.to === "/" }}
+                className={cn(
+                  "group flex flex-col items-center gap-1 rounded-[2rem] py-2.5 text-[11px] font-medium text-muted-foreground transition-colors",
+                  "hover:bg-secondary/60 data-[status=active]:text-primary",
+                )}
+              >
+                <item.icon className="size-5" />
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </nav>
     </div>
