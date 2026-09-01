@@ -7,8 +7,8 @@ import { books } from "@/data/bible";
 import { challenges, themes } from "@/data/content";
 
 export const Route = createFileRoute("/buscar")({
-  validateSearch: (search: Record<string, unknown>): { q?: string } => ({
-    q: typeof search.q === "string" ? search.q : undefined,
+  validateSearch: (search: Record<string, unknown>): { q: string } => ({
+    q: typeof search["q"] === "string" ? search["q"] : "",
   }),
   head: () => ({
     meta: [
