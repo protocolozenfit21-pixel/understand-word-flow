@@ -10,33 +10,232 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuscarRouteImport } from './routes/buscar'
+import { Route as ComecarRouteImport } from './routes/comecar'
+import { Route as CurtasRouteImport } from './routes/curtas'
+import { Route as DiarioRouteImport } from './routes/diario'
+import { Route as FavoritosRouteImport } from './routes/favoritos'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as OuvirRouteImport } from './routes/ouvir'
+import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as TimelineRouteImport } from './routes/timeline'
+import { Route as BibliaIndexRouteImport } from './routes/biblia.index'
+import { Route as DesafiosIndexRouteImport } from './routes/desafios.index'
+import { Route as DesafiosChallengeIdRouteImport } from './routes/desafios.$challengeId'
+import { Route as JornadaIndexRouteImport } from './routes/jornada.index'
+import { Route as JornadaStepIdRouteImport } from './routes/jornada.$stepId'
+import { Route as BibliaBookChapterRouteImport } from './routes/biblia.$book.$chapter'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuscarRoute = BuscarRouteImport.update({
+  id: '/buscar',
+  path: '/buscar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComecarRoute = ComecarRouteImport.update({
+  id: '/comecar',
+  path: '/comecar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CurtasRoute = CurtasRouteImport.update({
+  id: '/curtas',
+  path: '/curtas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiarioRoute = DiarioRouteImport.update({
+  id: '/diario',
+  path: '/diario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritosRoute = FavoritosRouteImport.update({
+  id: '/favoritos',
+  path: '/favoritos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OuvirRoute = OuvirRouteImport.update({
+  id: '/ouvir',
+  path: '/ouvir',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibliaIndexRoute = BibliaIndexRouteImport.update({
+  id: '/biblia/',
+  path: '/biblia/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesafiosIndexRoute = DesafiosIndexRouteImport.update({
+  id: '/desafios/',
+  path: '/desafios/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesafiosChallengeIdRoute = DesafiosChallengeIdRouteImport.update({
+  id: '/desafios/$challengeId',
+  path: '/desafios/$challengeId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaIndexRoute = JornadaIndexRouteImport.update({
+  id: '/jornada/',
+  path: '/jornada/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaStepIdRoute = JornadaStepIdRouteImport.update({
+  id: '/jornada/$stepId',
+  path: '/jornada/$stepId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BibliaBookChapterRoute = BibliaBookChapterRouteImport.update({
+  id: '/biblia/$book/$chapter',
+  path: '/biblia/$book/$chapter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/buscar': typeof BuscarRoute
+  '/comecar': typeof ComecarRoute
+  '/curtas': typeof CurtasRoute
+  '/diario': typeof DiarioRoute
+  '/favoritos': typeof FavoritosRoute
+  '/onboarding': typeof OnboardingRoute
+  '/ouvir': typeof OuvirRoute
+  '/perfil': typeof PerfilRoute
+  '/timeline': typeof TimelineRoute
+  '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
+  '/jornada/$stepId': typeof JornadaStepIdRoute
+  '/biblia/': typeof BibliaIndexRoute
+  '/desafios/': typeof DesafiosIndexRoute
+  '/jornada/': typeof JornadaIndexRoute
+  '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/buscar': typeof BuscarRoute
+  '/comecar': typeof ComecarRoute
+  '/curtas': typeof CurtasRoute
+  '/diario': typeof DiarioRoute
+  '/favoritos': typeof FavoritosRoute
+  '/onboarding': typeof OnboardingRoute
+  '/ouvir': typeof OuvirRoute
+  '/perfil': typeof PerfilRoute
+  '/timeline': typeof TimelineRoute
+  '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
+  '/jornada/$stepId': typeof JornadaStepIdRoute
+  '/biblia': typeof BibliaIndexRoute
+  '/desafios': typeof DesafiosIndexRoute
+  '/jornada': typeof JornadaIndexRoute
+  '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/buscar': typeof BuscarRoute
+  '/comecar': typeof ComecarRoute
+  '/curtas': typeof CurtasRoute
+  '/diario': typeof DiarioRoute
+  '/favoritos': typeof FavoritosRoute
+  '/onboarding': typeof OnboardingRoute
+  '/ouvir': typeof OuvirRoute
+  '/perfil': typeof PerfilRoute
+  '/timeline': typeof TimelineRoute
+  '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
+  '/jornada/$stepId': typeof JornadaStepIdRoute
+  '/biblia/': typeof BibliaIndexRoute
+  '/desafios/': typeof DesafiosIndexRoute
+  '/jornada/': typeof JornadaIndexRoute
+  '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/buscar'
+    | '/comecar'
+    | '/curtas'
+    | '/diario'
+    | '/favoritos'
+    | '/onboarding'
+    | '/ouvir'
+    | '/perfil'
+    | '/timeline'
+    | '/desafios/$challengeId'
+    | '/jornada/$stepId'
+    | '/biblia/'
+    | '/desafios/'
+    | '/jornada/'
+    | '/biblia/$book/$chapter'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/buscar'
+    | '/comecar'
+    | '/curtas'
+    | '/diario'
+    | '/favoritos'
+    | '/onboarding'
+    | '/ouvir'
+    | '/perfil'
+    | '/timeline'
+    | '/desafios/$challengeId'
+    | '/jornada/$stepId'
+    | '/biblia'
+    | '/desafios'
+    | '/jornada'
+    | '/biblia/$book/$chapter'
+  id:
+    | '__root__'
+    | '/'
+    | '/buscar'
+    | '/comecar'
+    | '/curtas'
+    | '/diario'
+    | '/favoritos'
+    | '/onboarding'
+    | '/ouvir'
+    | '/perfil'
+    | '/timeline'
+    | '/desafios/$challengeId'
+    | '/jornada/$stepId'
+    | '/biblia/'
+    | '/desafios/'
+    | '/jornada/'
+    | '/biblia/$book/$chapter'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BuscarRoute: typeof BuscarRoute
+  ComecarRoute: typeof ComecarRoute
+  CurtasRoute: typeof CurtasRoute
+  DiarioRoute: typeof DiarioRoute
+  FavoritosRoute: typeof FavoritosRoute
+  OnboardingRoute: typeof OnboardingRoute
+  OuvirRoute: typeof OuvirRoute
+  PerfilRoute: typeof PerfilRoute
+  TimelineRoute: typeof TimelineRoute
+  DesafiosChallengeIdRoute: typeof DesafiosChallengeIdRoute
+  JornadaStepIdRoute: typeof JornadaStepIdRoute
+  BibliaIndexRoute: typeof BibliaIndexRoute
+  DesafiosIndexRoute: typeof DesafiosIndexRoute
+  JornadaIndexRoute: typeof JornadaIndexRoute
+  BibliaBookChapterRoute: typeof BibliaBookChapterRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +247,131 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/buscar': {
+      id: '/buscar'
+      path: '/buscar'
+      fullPath: '/buscar'
+      preLoaderRoute: typeof BuscarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comecar': {
+      id: '/comecar'
+      path: '/comecar'
+      fullPath: '/comecar'
+      preLoaderRoute: typeof ComecarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/curtas': {
+      id: '/curtas'
+      path: '/curtas'
+      fullPath: '/curtas'
+      preLoaderRoute: typeof CurtasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diario': {
+      id: '/diario'
+      path: '/diario'
+      fullPath: '/diario'
+      preLoaderRoute: typeof DiarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favoritos': {
+      id: '/favoritos'
+      path: '/favoritos'
+      fullPath: '/favoritos'
+      preLoaderRoute: typeof FavoritosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ouvir': {
+      id: '/ouvir'
+      path: '/ouvir'
+      fullPath: '/ouvir'
+      preLoaderRoute: typeof OuvirRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biblia/': {
+      id: '/biblia/'
+      path: '/biblia'
+      fullPath: '/biblia/'
+      preLoaderRoute: typeof BibliaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desafios/': {
+      id: '/desafios/'
+      path: '/desafios'
+      fullPath: '/desafios/'
+      preLoaderRoute: typeof DesafiosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desafios/$challengeId': {
+      id: '/desafios/$challengeId'
+      path: '/desafios/$challengeId'
+      fullPath: '/desafios/$challengeId'
+      preLoaderRoute: typeof DesafiosChallengeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada/': {
+      id: '/jornada/'
+      path: '/jornada'
+      fullPath: '/jornada/'
+      preLoaderRoute: typeof JornadaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada/$stepId': {
+      id: '/jornada/$stepId'
+      path: '/jornada/$stepId'
+      fullPath: '/jornada/$stepId'
+      preLoaderRoute: typeof JornadaStepIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/biblia/$book/$chapter': {
+      id: '/biblia/$book/$chapter'
+      path: '/biblia/$book/$chapter'
+      fullPath: '/biblia/$book/$chapter'
+      preLoaderRoute: typeof BibliaBookChapterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BuscarRoute: BuscarRoute,
+  ComecarRoute: ComecarRoute,
+  CurtasRoute: CurtasRoute,
+  DiarioRoute: DiarioRoute,
+  FavoritosRoute: FavoritosRoute,
+  OnboardingRoute: OnboardingRoute,
+  OuvirRoute: OuvirRoute,
+  PerfilRoute: PerfilRoute,
+  TimelineRoute: TimelineRoute,
+  DesafiosChallengeIdRoute: DesafiosChallengeIdRoute,
+  JornadaStepIdRoute: JornadaStepIdRoute,
+  BibliaIndexRoute: BibliaIndexRoute,
+  DesafiosIndexRoute: DesafiosIndexRoute,
+  JornadaIndexRoute: JornadaIndexRoute,
+  BibliaBookChapterRoute: BibliaBookChapterRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
