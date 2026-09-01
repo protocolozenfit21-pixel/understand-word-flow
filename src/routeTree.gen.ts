@@ -13,6 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComecarRouteImport } from './routes/comecar'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as BibliaIndexRouteImport } from './routes/biblia.index'
+import { Route as DesafiosIndexRouteImport } from './routes/desafios.index'
+import { Route as DesafiosChallengeIdRouteImport } from './routes/desafios.$challengeId'
+import { Route as JornadaIndexRouteImport } from './routes/jornada.index'
+import { Route as JornadaStepIdRouteImport } from './routes/jornada.$stepId'
 import { Route as BibliaBookChapterRouteImport } from './routes/biblia.$book.$chapter'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +39,26 @@ const BibliaIndexRoute = BibliaIndexRouteImport.update({
   path: '/biblia/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DesafiosIndexRoute = DesafiosIndexRouteImport.update({
+  id: '/desafios/',
+  path: '/desafios/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesafiosChallengeIdRoute = DesafiosChallengeIdRouteImport.update({
+  id: '/desafios/$challengeId',
+  path: '/desafios/$challengeId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaIndexRoute = JornadaIndexRouteImport.update({
+  id: '/jornada/',
+  path: '/jornada/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JornadaStepIdRoute = JornadaStepIdRouteImport.update({
+  id: '/jornada/$stepId',
+  path: '/jornada/$stepId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BibliaBookChapterRoute = BibliaBookChapterRouteImport.update({
   id: '/biblia/$book/$chapter',
   path: '/biblia/$book/$chapter',
@@ -45,14 +69,22 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/comecar': typeof ComecarRoute
   '/onboarding': typeof OnboardingRoute
+  '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
+  '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia/': typeof BibliaIndexRoute
+  '/desafios/': typeof DesafiosIndexRoute
+  '/jornada/': typeof JornadaIndexRoute
   '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/comecar': typeof ComecarRoute
   '/onboarding': typeof OnboardingRoute
+  '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
+  '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia': typeof BibliaIndexRoute
+  '/desafios': typeof DesafiosIndexRoute
+  '/jornada': typeof JornadaIndexRoute
   '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRoutesById {
@@ -60,21 +92,46 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/comecar': typeof ComecarRoute
   '/onboarding': typeof OnboardingRoute
+  '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
+  '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia/': typeof BibliaIndexRoute
+  '/desafios/': typeof DesafiosIndexRoute
+  '/jornada/': typeof JornadaIndexRoute
   '/biblia/$book/$chapter': typeof BibliaBookChapterRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/comecar' | '/onboarding' | '/biblia/' | '/biblia/$book/$chapter'
+    | '/'
+    | '/comecar'
+    | '/onboarding'
+    | '/desafios/$challengeId'
+    | '/jornada/$stepId'
+    | '/biblia/'
+    | '/desafios/'
+    | '/jornada/'
+    | '/biblia/$book/$chapter'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/comecar' | '/onboarding' | '/biblia' | '/biblia/$book/$chapter'
+  to:
+    | '/'
+    | '/comecar'
+    | '/onboarding'
+    | '/desafios/$challengeId'
+    | '/jornada/$stepId'
+    | '/biblia'
+    | '/desafios'
+    | '/jornada'
+    | '/biblia/$book/$chapter'
   id:
     | '__root__'
     | '/'
     | '/comecar'
     | '/onboarding'
+    | '/desafios/$challengeId'
+    | '/jornada/$stepId'
     | '/biblia/'
+    | '/desafios/'
+    | '/jornada/'
     | '/biblia/$book/$chapter'
   fileRoutesById: FileRoutesById
 }
@@ -82,7 +139,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ComecarRoute: typeof ComecarRoute
   OnboardingRoute: typeof OnboardingRoute
+  DesafiosChallengeIdRoute: typeof DesafiosChallengeIdRoute
+  JornadaStepIdRoute: typeof JornadaStepIdRoute
   BibliaIndexRoute: typeof BibliaIndexRoute
+  DesafiosIndexRoute: typeof DesafiosIndexRoute
+  JornadaIndexRoute: typeof JornadaIndexRoute
   BibliaBookChapterRoute: typeof BibliaBookChapterRoute
 }
 
@@ -116,6 +177,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BibliaIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/desafios/': {
+      id: '/desafios/'
+      path: '/desafios'
+      fullPath: '/desafios/'
+      preLoaderRoute: typeof DesafiosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/desafios/$challengeId': {
+      id: '/desafios/$challengeId'
+      path: '/desafios/$challengeId'
+      fullPath: '/desafios/$challengeId'
+      preLoaderRoute: typeof DesafiosChallengeIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada/': {
+      id: '/jornada/'
+      path: '/jornada'
+      fullPath: '/jornada/'
+      preLoaderRoute: typeof JornadaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jornada/$stepId': {
+      id: '/jornada/$stepId'
+      path: '/jornada/$stepId'
+      fullPath: '/jornada/$stepId'
+      preLoaderRoute: typeof JornadaStepIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/biblia/$book/$chapter': {
       id: '/biblia/$book/$chapter'
       path: '/biblia/$book/$chapter'
@@ -130,7 +219,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ComecarRoute: ComecarRoute,
   OnboardingRoute: OnboardingRoute,
+  DesafiosChallengeIdRoute: DesafiosChallengeIdRoute,
+  JornadaStepIdRoute: JornadaStepIdRoute,
   BibliaIndexRoute: BibliaIndexRoute,
+  DesafiosIndexRoute: DesafiosIndexRoute,
+  JornadaIndexRoute: JornadaIndexRoute,
   BibliaBookChapterRoute: BibliaBookChapterRoute,
 }
 export const routeTree = rootRouteImport
