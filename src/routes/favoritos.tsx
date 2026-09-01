@@ -18,7 +18,7 @@ export const Route = createFileRoute("/favoritos")({
       { property: "og:description", content: "Suas passagens favoritas organizadas por tema." },
     ],
   }),
-  component: Favoritos;
+  component: Favoritos,
 });
 
 const collections = ["Todos", "Paz", "Ansiedade", "Fé", "Amor", "Oração", "Força", "Versículos favoritos"];

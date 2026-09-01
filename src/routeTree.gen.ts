@@ -10,8 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BuscarRouteImport } from './routes/buscar'
 import { Route as ComecarRouteImport } from './routes/comecar'
+import { Route as DiarioRouteImport } from './routes/diario'
+import { Route as FavoritosRouteImport } from './routes/favoritos'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as BibliaIndexRouteImport } from './routes/biblia.index'
 import { Route as DesafiosIndexRouteImport } from './routes/desafios.index'
 import { Route as DesafiosChallengeIdRouteImport } from './routes/desafios.$challengeId'
@@ -24,14 +28,34 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BuscarRoute = BuscarRouteImport.update({
+  id: '/buscar',
+  path: '/buscar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ComecarRoute = ComecarRouteImport.update({
   id: '/comecar',
   path: '/comecar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiarioRoute = DiarioRouteImport.update({
+  id: '/diario',
+  path: '/diario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FavoritosRoute = FavoritosRouteImport.update({
+  id: '/favoritos',
+  path: '/favoritos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BibliaIndexRoute = BibliaIndexRouteImport.update({
@@ -67,8 +91,12 @@ const BibliaBookChapterRoute = BibliaBookChapterRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/buscar': typeof BuscarRoute
   '/comecar': typeof ComecarRoute
+  '/diario': typeof DiarioRoute
+  '/favoritos': typeof FavoritosRoute
   '/onboarding': typeof OnboardingRoute
+  '/perfil': typeof PerfilRoute
   '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
   '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia/': typeof BibliaIndexRoute
@@ -78,8 +106,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/buscar': typeof BuscarRoute
   '/comecar': typeof ComecarRoute
+  '/diario': typeof DiarioRoute
+  '/favoritos': typeof FavoritosRoute
   '/onboarding': typeof OnboardingRoute
+  '/perfil': typeof PerfilRoute
   '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
   '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia': typeof BibliaIndexRoute
@@ -90,8 +122,12 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/buscar': typeof BuscarRoute
   '/comecar': typeof ComecarRoute
+  '/diario': typeof DiarioRoute
+  '/favoritos': typeof FavoritosRoute
   '/onboarding': typeof OnboardingRoute
+  '/perfil': typeof PerfilRoute
   '/desafios/$challengeId': typeof DesafiosChallengeIdRoute
   '/jornada/$stepId': typeof JornadaStepIdRoute
   '/biblia/': typeof BibliaIndexRoute
@@ -103,8 +139,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/buscar'
     | '/comecar'
+    | '/diario'
+    | '/favoritos'
     | '/onboarding'
+    | '/perfil'
     | '/desafios/$challengeId'
     | '/jornada/$stepId'
     | '/biblia/'
@@ -114,8 +154,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/buscar'
     | '/comecar'
+    | '/diario'
+    | '/favoritos'
     | '/onboarding'
+    | '/perfil'
     | '/desafios/$challengeId'
     | '/jornada/$stepId'
     | '/biblia'
@@ -125,8 +169,12 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/buscar'
     | '/comecar'
+    | '/diario'
+    | '/favoritos'
     | '/onboarding'
+    | '/perfil'
     | '/desafios/$challengeId'
     | '/jornada/$stepId'
     | '/biblia/'
@@ -137,8 +185,12 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BuscarRoute: typeof BuscarRoute
   ComecarRoute: typeof ComecarRoute
+  DiarioRoute: typeof DiarioRoute
+  FavoritosRoute: typeof FavoritosRoute
   OnboardingRoute: typeof OnboardingRoute
+  PerfilRoute: typeof PerfilRoute
   DesafiosChallengeIdRoute: typeof DesafiosChallengeIdRoute
   JornadaStepIdRoute: typeof JornadaStepIdRoute
   BibliaIndexRoute: typeof BibliaIndexRoute
@@ -156,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/buscar': {
+      id: '/buscar'
+      path: '/buscar'
+      fullPath: '/buscar'
+      preLoaderRoute: typeof BuscarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/comecar': {
       id: '/comecar'
       path: '/comecar'
@@ -163,11 +222,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComecarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/diario': {
+      id: '/diario'
+      path: '/diario'
+      fullPath: '/diario'
+      preLoaderRoute: typeof DiarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/favoritos': {
+      id: '/favoritos'
+      path: '/favoritos'
+      fullPath: '/favoritos'
+      preLoaderRoute: typeof FavoritosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/onboarding': {
       id: '/onboarding'
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/biblia/': {
@@ -217,8 +297,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BuscarRoute: BuscarRoute,
   ComecarRoute: ComecarRoute,
+  DiarioRoute: DiarioRoute,
+  FavoritosRoute: FavoritosRoute,
   OnboardingRoute: OnboardingRoute,
+  PerfilRoute: PerfilRoute,
   DesafiosChallengeIdRoute: DesafiosChallengeIdRoute,
   JornadaStepIdRoute: JornadaStepIdRoute,
   BibliaIndexRoute: BibliaIndexRoute,
