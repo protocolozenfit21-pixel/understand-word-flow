@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ArrowLeft, Check, Headphones } from "lucide-react";
 import { toast } from "sonner";
@@ -6,14 +7,25 @@ import { BibleReader, LayerSwitcher, type Layer } from "@/components/BibleReader
 import { AudioPlayer } from "@/components/AudioPlayer";
 import { Quiz } from "@/components/Quiz";
 import { Pill, ProgressBar, SectionCard } from "@/components/ui-bits";
-import { getChapter, quizFor } from "@/data/bible";
+import { quizFor } from "@/data/bible";
+import { bookById } from "@/data/bible-books";
+import { ensureChapterLayers, getChapter } from "@/lib/bible.functions";
 import { actions, useAppState } from "@/lib/store";
 
+const chapterQuery = (book: string, chapter: number) =>
+  queryOptions({
+    queryKey: ["chapter", book, chapter],
+    queryFn: () => getChapter({ data: { book, chapter } }),
+    staleTime: 5 * 60_000,
+  });
+
 export const Route = createFileRoute("/biblia/$book/$chapter")({
-  loader: ({ params }) => {
-    const found = getChapter(params.book, Number(params.chapter));
-    if (!found) throw notFound();
-    return { bookName: found.book.name, chapterNumber: found.chapter.number, title: found.chapter.title };
+  loader: async ({ params, context }) => {
+    const meta = bookById.get(params.book);
+    const chapter = Number(params.chapter);
+    if (!meta || !Number.isInteger(chapter) || chapter < 1 || chapter > meta.totalChapters) throw notFound();
+    await context.queryClient.ensureQueryData(chapterQuery(params.book, chapter));
+    return { bookName: meta.name, chapterNumber: chapter };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -22,12 +34,12 @@ export const Route = createFileRoute("/biblia/$book/$chapter")({
     const label = `${loaderData.bookName} ${loaderData.chapterNumber}`;
     return {
       meta: [
-        { title: `${label} — ${loaderData.title} | Lumen` },
+        { title: `${label} | Lumen` },
         {
           name: "description",
           content: `Leia ${label} com texto bíblico, linguagem atual e explicação com contexto histórico e aplicação para hoje.`,
         },
-        { property: "og:title", content: `${label} — ${loaderData.title}` },
+        { property: "og:title", content: `${label} — Bíblia em três camadas` },
         {
           property: "og:description",
           content: `Texto, linguagem simples e explicação de ${label}, com reflexão e diário espiritual.`,
@@ -35,28 +47,58 @@ export const Route = createFileRoute("/biblia/$book/$chapter")({
       ],
     };
   },
+  errorComponent: ({ error }) => (
+    <div className="mx-auto max-w-lg rounded-3xl border border-border/70 bg-card p-6 text-center">
+      <p className="font-semibold">Não conseguimos abrir esta passagem</p>
+      <p className="mt-2 text-sm text-muted-foreground">{error.message}</p>
+      <Link to="/biblia" className="mt-4 inline-block rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
+        Voltar para a Bíblia
+      </Link>
+    </div>
+  ),
+  notFoundComponent: () => (
+    <div className="mx-auto max-w-lg rounded-3xl border border-border/70 bg-card p-6 text-center">
+      <p className="font-semibold">Capítulo não encontrado</p>
+      <Link to="/biblia" className="mt-4 inline-block rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
+        Escolher outro livro
+      </Link>
+    </div>
+  ),
   component: ChapterPage,
 });
 
 function ChapterPage() {
   const params = Route.useParams();
-  const found = getChapter(params.book, Number(params.chapter));
+  const chapterNumber = Number(params.chapter);
+  const options = chapterQuery(params.book, chapterNumber);
+  const { data } = useSuspenseQuery(options);
+  const queryClient = useQueryClient();
   const [layer, setLayer] = useState<Layer>("texto");
   const [reflection, setReflection] = useState("");
   const [showQuiz, setShowQuiz] = useState(false);
   const readChapters = useAppState((s) => s.readChapters);
 
-  const book = found?.book;
-  const chapter = found?.chapter;
+  const generate = useMutation({
+    mutationFn: () => ensureChapterLayers({ data: { book: params.book, chapter: chapterNumber } }),
+    onSuccess: (result) => {
+      if (result.ok) queryClient.invalidateQueries({ queryKey: options.queryKey });
+      else toast.error(result.message ?? "Explicações indisponíveis agora.");
+    },
+    onError: () => toast.error("Explicações indisponíveis agora."),
+  });
 
   useEffect(() => {
-    if (!book || !chapter) return;
-    actions.setLastRead({ book: book.id, bookName: book.name, chapter: chapter.number, verse: 1 });
-  }, [book, chapter]);
+    actions.setLastRead({ book: data.book.id, bookName: data.book.name, chapter: data.chapter, verse: 1 });
+  }, [data.book.id, data.book.name, data.chapter]);
 
-  if (!book || !chapter) return null;
+  useEffect(() => {
+    if (data.layersReady) return;
+    if (layer === "texto") return;
+    if (generate.isPending || generate.isSuccess || generate.isError) return;
+    generate.mutate();
+  }, [data.layersReady, layer, generate]);
 
-  const key = `${book.id}-${chapter.number}`;
+  const key = `${data.book.id}-${data.chapter}`;
   const done = readChapters.includes(key);
 
   return (
@@ -67,25 +109,39 @@ function ChapterPage() {
         </Link>
         <div>
           <h1 className="text-lg font-semibold">
-            {book.name} {chapter.number}
+            {data.book.name} {data.chapter}
           </h1>
-          <p className="text-xs text-muted-foreground">{chapter.title}</p>
+          <p className="text-xs text-muted-foreground">{data.title}</p>
         </div>
-        <Pill tone="gold">⏱️ {chapter.minutes} min</Pill>
+        <Pill tone="gold">⏱️ {data.minutes} min</Pill>
       </div>
 
       <div className="mb-4">
-        <ProgressBar value={chapter.verses.length} max={chapter.verses.length} tone="sage" />
+        <ProgressBar value={data.verses.length} max={data.verses.length} tone="sage" />
         <p className="mt-1.5 text-xs text-muted-foreground">
-          {chapter.verses.length} de {chapter.verses.length} versículos nesta seleção
+          {data.verses.length} versículos neste capítulo
         </p>
       </div>
 
       <LayerSwitcher value={layer} onChange={setLayer} />
 
       <div className="mt-5 rounded-3xl border border-border/70 bg-scripture p-4 md:p-6">
-        <BibleReader book={book} chapter={chapter} layer={layer} />
+        <BibleReader
+          book={data.book}
+          chapter={{ number: data.chapter, verses: data.verses, insight: data.insight }}
+          layer={layer}
+        />
       </div>
+
+      {!data.layersReady && layer !== "texto" && (generate.isError || (generate.isSuccess && !generate.data.ok)) ? (
+        <button
+          type="button"
+          onClick={() => generate.mutate()}
+          className="mx-auto mt-4 block rounded-full border border-border px-5 py-2.5 text-sm font-medium"
+        >
+          Tentar gerar novamente
+        </button>
+      ) : null}
 
       <p className="mt-3 text-center text-xs text-muted-foreground">
         Toque em um versículo para favoritar, destacar, anotar ou ver a explicação.
@@ -97,7 +153,7 @@ function ChapterPage() {
             <button
               type="button"
               onClick={() => {
-                actions.completeReading(book.id, chapter.number, chapter.minutes);
+                actions.completeReading(data.book.id, data.chapter, data.minutes);
                 toast.success("Leitura concluída", { description: "Você está construindo um lindo hábito." });
               }}
               className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground"
@@ -117,7 +173,7 @@ function ChapterPage() {
           </div>
           {showQuiz ? (
             <div className="mt-5">
-              <Quiz questions={quizFor(book.id, chapter.number)} />
+              <Quiz questions={quizFor(data.book.id, data.chapter)} />
             </div>
           ) : null}
         </SectionCard>
@@ -127,7 +183,7 @@ function ChapterPage() {
             onSubmit={(e) => {
               e.preventDefault();
               if (!reflection.trim()) return;
-              actions.addJournal({ reference: `${book.name} ${chapter.number}`, content: reflection.trim() });
+              actions.addJournal({ reference: `${data.book.name} ${data.chapter}`, content: reflection.trim() });
               setReflection("");
               toast.success("Reflexão salva no seu diário");
             }}
@@ -150,7 +206,7 @@ function ChapterPage() {
           </form>
         </SectionCard>
 
-        <AudioPlayer title={`${book.name} ${chapter.number}`} subtitle="Narração e reflexão em áudio (em breve)" />
+        <AudioPlayer title={`${data.book.name} ${data.chapter}`} subtitle="Narração e reflexão em áudio (em breve)" />
       </div>
     </div>
   );

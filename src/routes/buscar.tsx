@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Search } from "lucide-react";
 import { PageHeader } from "@/components/AppShell";
 import { EmptyState, Pill, SectionCard } from "@/components/ui-bits";
-import { books } from "@/data/bible";
+import { bookCatalog } from "@/data/bible-books";
+import { searchVerses } from "@/lib/bible.functions";
 import { challenges, themes } from "@/data/content";
 
 export const Route = createFileRoute("/buscar")({
@@ -33,12 +35,20 @@ function Buscar() {
   const matchedThemes = term
     ? themes.filter((t) => t.name.toLowerCase().includes(term) || t.id.includes(term))
     : themes.slice(0, 4);
-  const matchedBooks = term ? books.filter((b) => b.name.toLowerCase().includes(term)) : [];
+  const matchedBooks = term ? bookCatalog.filter((b) => b.name.toLowerCase().includes(term)) : [];
+  const verseSearch = useQuery({
+    queryKey: ["verse-search", term],
+    queryFn: () => searchVerses({ data: { term } }),
+    enabled: term.length >= 3,
+    staleTime: 60_000,
+  });
+  const verseHits = verseSearch.data?.results ?? [];
   const matchedChallenges = term
     ? challenges.filter((c) => c.title.toLowerCase().includes(term) || c.description.toLowerCase().includes(term))
     : [];
 
-  const nothing = term && !matchedThemes.length && !matchedBooks.length && !matchedChallenges.length;
+  const nothing =
+    term && !matchedThemes.length && !matchedBooks.length && !matchedChallenges.length && !verseHits.length;
 
   return (
     <div className="mx-auto max-w-3xl">
@@ -148,13 +158,43 @@ function Buscar() {
                 <Link
                   key={b.id}
                   to="/biblia/$book/$chapter"
-                  params={{ book: b.id, chapter: String(b.chapters[0]?.number ?? 1) }}
+                  params={{ book: b.id, chapter: "1" }}
                   className="rounded-full bg-secondary px-4 py-2 text-sm font-medium"
                 >
                   {b.name}
                 </Link>
               ))}
             </div>
+          </SectionCard>
+        ) : null}
+
+        {term.length >= 3 ? (
+          <SectionCard eyebrow="📜 Texto bíblico" title={`Versículos com “${query.trim()}”`}>
+            {verseSearch.isFetching ? (
+              <p className="text-sm text-muted-foreground">Procurando na Bíblia completa…</p>
+            ) : verseHits.length ? (
+              <ul className="space-y-2">
+                {verseHits.map((v) => (
+                  <li key={`${v.book}-${v.chapter}-${v.verse}`} className="rounded-2xl bg-scripture p-4">
+                    <p className="font-scripture text-[16px] leading-relaxed text-scripture-foreground">“{v.text}”</p>
+                    <div className="mt-2 flex items-center justify-between gap-2">
+                      <span className="text-xs text-muted-foreground">
+                        {v.bookName} {v.chapter}:{v.verse}
+                      </span>
+                      <Link
+                        to="/biblia/$book/$chapter"
+                        params={{ book: v.book, chapter: String(v.chapter) }}
+                        className="text-xs font-semibold text-primary"
+                      >
+                        Ler capítulo →
+                      </Link>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-sm text-muted-foreground">Nenhum versículo com esse termo exato.</p>
+            )}
           </SectionCard>
         ) : null}
 
